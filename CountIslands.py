@@ -1,4 +1,6 @@
-def numIslands(grid):
+from collections import deque
+
+def numIslandsDFS(grid):
     if not grid:
         return 0
     
@@ -26,6 +28,35 @@ def numIslands(grid):
     
     return island_count
 
+def numIslandsBFS(grid):
+    if not grid:
+        return 0
+    
+    rows, cols = len(grid), len(grid[0])
+    island_count = 0
+    
+    def bfs(i, j):
+        queue = deque([(i, j)])
+        grid[i][j] = 0  # Mark as visited
+        
+        while queue:
+            curr_i, curr_j = queue.popleft()
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
+            
+            for di, dj in directions:
+                next_i, next_j = curr_i + di, curr_j + dj
+                if 0 <= next_i < rows and 0 <= next_j < cols and grid[next_i][next_j] == 1:
+                    queue.append((next_i, next_j))
+                    grid[next_i][next_j] = 0  # Mark as visited
+    
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == 1:
+                bfs(i, j)
+                island_count += 1
+    
+    return island_count
+
 # Test cases
 if __name__ == "__main__":
     # Test case 1: Multiple islands
@@ -39,7 +70,8 @@ if __name__ == "__main__":
     print("Grid:")
     for row in grid1:
         print(row)
-    print("Number of islands:", numIslands(grid1))
+    print("Number of islands (DFS):", numIslandsDFS([row[:] for row in grid1]))
+    print("Number of islands (BFS):", numIslandsBFS([row[:] for row in grid1]))
     print()
 
     # Test case 2: Single island
@@ -53,7 +85,8 @@ if __name__ == "__main__":
     print("Grid:")
     for row in grid2:
         print(row)
-    print("Number of islands:", numIslands(grid2))
+    print("Number of islands (DFS):", numIslandsDFS([row[:] for row in grid2]))
+    print("Number of islands (BFS):", numIslandsBFS([row[:] for row in grid2]))
     print()
 
     # Test case 3: No islands
@@ -67,4 +100,5 @@ if __name__ == "__main__":
     print("Grid:")
     for row in grid3:
         print(row)
-    print("Number of islands:", numIslands(grid3))
+    print("Number of islands (DFS):", numIslandsDFS([row[:] for row in grid3]))
+    print("Number of islands (BFS):", numIslandsBFS([row[:] for row in grid3]))
