@@ -5,35 +5,34 @@ class TreeNode:
         self.right = right
 
 def hasPathSum(root, target_sum):
-    path = []  # To store the path
-
-    def dfs(node, current_sum):
+    def dfs(node, current_sum, path):
         if not node:
-            return False
-        
-        # Add the current node's value to the path and the sum
-        path.append(node.value)
+            return False, []
+
+        # Update the current sum and path
         current_sum += node.value
-        
+        current_path = path + [node.value]  # Create a new path list
+
         # Check if it's a leaf node and if the current sum matches the target
         if not node.left and not node.right:
             if current_sum == target_sum:
-                return True
+                return True, current_path  # Return the current path
             else:
-                path.pop()  # Backtrack if not the correct path
-                return False
+                return False, []
 
         # Recursively check the left and right subtrees
-        if (dfs(node.left, current_sum) or dfs(node.right, current_sum)):
-            return True
-        
-        path.pop()  # Backtrack if not the correct path
-        return False
+        left_result, left_path = dfs(node.left, current_sum, current_path)
+        if left_result:
+            return True, left_path
 
-    if dfs(root, 0):
-        return True, path
-    else:
+        right_result, right_path = dfs(node.right, current_sum, current_path)
+        if right_result:
+            return True, right_path
+
         return False, []
+
+    result, path = dfs(root, 0, [])
+    return result, path if result else []
 
 # Example usage:
 # Constructing a binary tree:
