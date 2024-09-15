@@ -38,6 +38,26 @@ def maxPathSum(root):
     dfs(root)
     return max_sum, max_path
 
+
+# Example usage:
+# Constructing a binary tree:
+#       -10
+#       /  \
+#      9   20
+#          /  \
+#         15   7
+
+root = TreeNode(-10)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(7)
+
+result, path = maxPathSum(root)
+print(f"Maximum Path Sum: {result}")  # Output: Maximum path sum
+print(f"Path: {path}")  # Output: The path corresponding to the maximum path sumß
+
+
 # Constructing a more complex binary tree:
 #       -10
 #       /  \
