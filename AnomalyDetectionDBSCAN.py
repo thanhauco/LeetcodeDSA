@@ -1,42 +1,49 @@
 import numpy as np
+from sklearn.datasets import make_blobs
 from sklearn.cluster import DBSCAN
 import matplotlib.pyplot as plt
 
-# Sample data: [feature1, feature2]
-data = np.array([
-    [1, 2], [2, 2], [2, 3], [8, 7], [8, 8], [25, 80],
-    [24, 80], [25, 81], [26, 81]
-])
+# Parameters
+n_samples = 50
+n_features = 2
+centers = 3
+cluster_std = [1.0, 1.0, 1.0]
+noise_samples = 10  # Number of noise points
+outlier_samples = 5  # Number of outlier points
 
-# Initialize DBSCAN
-# epsilon is the radius within which points are considered neighbors
-# min_samples is the number of points required to form a dense region
-dbscan = DBSCAN(eps=3, min_samples=2)
+# Generate synthetic data with clusters
+data, _ = make_blobs(n_samples=n_samples, n_features=n_features, centers=centers, cluster_std=cluster_std, random_state=42)
 
-# Fit DBSCAN to the data
-dbscan.fit(data)
+# Add noise
+np.random.seed(42)
+noise = np.random.uniform(low=-10, high=10, size=(noise_samples, n_features))
+data_with_noise = np.vstack([data, noise])
 
-# Get cluster labels
-labels = dbscan.labels_
+# Add outliers
+outliers = np.random.uniform(low=-15, high=15, size=(outlier_samples, n_features))
+data_with_outliers = np.vstack([data_with_noise, outliers])
 
-# Identify unique labels (clusters and noise)
-unique_labels = set(labels)
+# Apply DBSCAN
+dbscan = DBSCAN(eps=1.5, min_samples=5)
+labels = dbscan.fit_predict(data_with_outliers)
 
-# Plot results
-plt.figure(figsize=(8, 6))
+# Visualize the results
+plt.figure(figsize=(12, 8))
+unique_labels = np.unique(labels)
+colors = plt.cm.Spectral(np.linspace(0, 1, len(unique_labels)))
 
-# Define colors for clusters and noise
-colors = plt.cm.get_cmap('Spectral', len(unique_labels))
+for k, col in zip(unique_labels, colors):
+    class_member_mask = (labels == k)
+    xy = data_with_outliers[class_member_mask]
+    plt.scatter(xy[:, 0], xy[:, 1], s=50, c=[col], label=f'Cluster {k}')
 
-for label in unique_labels:
-    class_member_mask = (labels == label)
-    xy = data[class_member_mask]
-    plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=colors(label), markeredgecolor='k', markersize=6)
+# Highlight noise points (label = -1)
+noise_mask = (labels == -1)
+plt.scatter(data_with_outliers[noise_mask, 0], data_with_outliers[noise_mask, 1], s=50, c='black', marker='x', label='Noise')
 
-plt.title('DBSCAN Clustering')
+plt.title('DBSCAN Clustering with Noise and Outliers')
 plt.xlabel('Feature 1')
 plt.ylabel('Feature 2')
+plt.legend()
+plt.grid(True)
 plt.show()
-
-# Print the cluster labels
-print('Cluster Labels:', labels)
