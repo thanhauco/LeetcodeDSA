@@ -45,4 +45,4 @@ root.right.left = Node(4)
 root.right.right = Node(5)
 
 # Print the nodes in reverse level-wise order
-print_reverse_level_wise(root)
+print_reverse_level_wise(root) # print 5 4 3 2 1 from bottom
