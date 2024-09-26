@@ -30,10 +30,10 @@ def print_reverse_level_wise(root):
 
     while stack:
         level_values = stack.pop()
-        #while (level_values):
-        #    print(level_values.pop(), end=" ")#for value in level_values:
-         
         
+        #while (level_values):
+        #    print(level_values.pop(), end=" ")
+         
         for i in range(1, len(level_values) + 1):
             print(level_values[-i], end=" ") # print reverse
 
