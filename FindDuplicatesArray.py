@@ -45,4 +45,11 @@ def find_duplicates_Counter(arr):
 
 # Example usage
 array = [1, 2, 3, 4, 2, 5, 3]
-print(find_duplicates(array))  # Output: [2, 3]
+print(find_duplicates_Counter(array))  # Output: [2, 3]
+
+def find_duplicates_using_set(arr):
+    return list(set([x for x in arr if arr.count(x) > 1]))
+
+# Example usage
+array = [1, 2, 3, 4, 2, 5, 3]
+print(find_duplicates_using_set(array))  # Output: [2, 3]
