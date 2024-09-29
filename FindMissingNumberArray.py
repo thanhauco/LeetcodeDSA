@@ -1,8 +1,8 @@
 def find_missing_number(arr):
-    # Sum of numbers from 1 to 10
-    total = 55 # formula n*(n+1)/2
-    sum_of_array = sum(arr)  # Sum of the given array
-    missing_number = total - sum_of_array  # Calculate the missing number
+    n = len(arr) + 1  # The expected length of the array (including the missing number)
+    expected_sum = n * (n + 1) // 2  # Sum of numbers from 1 to n
+    actual_sum = sum(arr)  # Sum of the given array
+    missing_number = expected_sum - actual_sum  # Calculate the missing number
     return missing_number
 
 # Example usage
