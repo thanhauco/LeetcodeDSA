@@ -1,3 +1,5 @@
+from collections import Counter
+
 def find_duplicates(arr):
     seen = set()
     duplicates = set()
@@ -33,4 +35,14 @@ def count_duplicates(arr):
 
 # Example usage
 array = [0, 2, 3, 4, 2, 5, 3, 5, 2, 1, 4]
-print(count_duplicates(array))  
+print(count_duplicates(array))  # output: {2: 3, 3: 2, 4: 2, 5: 2}
+
+
+# Using Counter class faster
+def find_duplicates_Counter(arr):
+    counts = Counter(arr)
+    return [item for (item, count) in counts.items() if count > 1]
+
+# Example usage
+array = [1, 2, 3, 4, 2, 5, 3]
+print(find_duplicates(array))  # Output: [2, 3]
