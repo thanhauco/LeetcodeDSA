@@ -53,3 +53,13 @@ def find_duplicates_using_set(arr):
 # Example usage
 array = [1, 2, 3, 4, 2, 5, 3]
 print(find_duplicates_using_set(array))  # Output: [2, 3]
+
+def find_duplicates_using_dict(arr):
+    counts = {}
+    for item in arr:
+        counts[item] = counts.get(item, 0) + 1
+    return [item for item, count in counts.items() if count > 1]
+
+# Example usage
+array = [1, 2, 3, 4, 2, 5, 3]
+print(find_duplicates_using_dict(array))  # Output: [2, 3]
