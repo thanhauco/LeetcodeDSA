@@ -10,7 +10,7 @@ def connect_leaves(root):
         return None
 
     leaves = []
-    
+
     # Helper function to perform DFS and collect leaf nodes
     def dfs(node):
         if not node:
@@ -24,7 +24,7 @@ def connect_leaves(root):
 
     # Perform DFS to collect leaves
     dfs(root)
-    
+
     # Connect the leaf nodes
     for i in range(len(leaves) - 1):
         leaves[i].next = leaves[i + 1]
@@ -40,12 +40,17 @@ def connect_leaves(root):
 #       2   3
 #      / \   \
 #     4   5   6
+#        / \
+#       7   8
 
 root = Node(1)
 root.left = Node(2)
 root.right = Node(3)
 root.left.left = Node(4)
 root.left.right = Node(5)
+root.left.right.left = Node(7)
+root.left.right.right = Node(8)
+
 root.right.right = Node(6)
 
 # Connect leaves
