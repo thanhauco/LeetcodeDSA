@@ -50,11 +50,7 @@ root.left.left = Node(4)
 root.left.right = Node(5)
 root.left.right.left = Node(7)
 root.left.right.right = Node(8)
-
 root.right.right = Node(6)
-
-# Connect leaves
-connect_leaves(root)
 
 # Function to print the next pointers of leaf nodes
 def print_leaf_next_pointers(node):
@@ -68,4 +64,4 @@ def print_leaf_next_pointers(node):
 
 # Print the next pointers for the leaf nodes
 print("Next pointers for leaf nodes:")
-print_leaf_next_pointers(root.left.left)  # Starting from leaf node 4
+print_leaf_next_pointers(connect_leaves(root))  # Starting from leaf node 4
