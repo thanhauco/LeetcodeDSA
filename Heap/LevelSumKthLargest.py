@@ -1,5 +1,4 @@
 from collections import deque
-import heapq
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -10,11 +9,11 @@ class TreeNode:
 class Solution:
     def kthLargestLevelSum(self, root: TreeNode, k: int) -> int:
         if not root:
-            return -1  # Handle empty tree case
+            return -1  # or handle empty tree case as desired
         
         level_sums = []
         queue = deque([root])
-        
+
         while queue:
             level_size = len(queue)
             current_level_sum = 0
@@ -27,16 +26,16 @@ class Solution:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-            
-            # Add the current level sum to the min-heap
-            heapq.heappush(level_sums, current_level_sum)
-            if len(level_sums) > k:
-                heapq.heappop(level_sums)  # Remove the smallest sum if we exceed size k
 
-        if len(level_sums) < k:
-            return -1  # Not enough levels
+            level_sums.append(current_level_sum)
+
+        # Sort the level sums in descending order and return the k-th largest
+        level_sums.sort(reverse=True)
+
+        if k > len(level_sums):
+            return -1  # or handle the case where k is out of bounds
         
-        return level_sums[0]  # The k-th largest sum is the smallest in the heap
+        return level_sums[k - 1]  # k-th largest is at index k-1
 
 # Example usage:
 # Constructing a simple BST
@@ -56,9 +55,3 @@ root.right.right = TreeNode(9)
 solution = Solution()
 k = 2
 print(solution.kthLargestLevelSum(root, k))  # Output: Expected k-th largest level sum
-
-"""
-Time Complexity: O(N log k), where N is the total number of nodes, due to the heap operations for each level sum.
-Space Complexity: O(k) for storing the k largest sums in the heap.
-
-"""

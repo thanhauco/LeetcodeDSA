@@ -8,7 +8,7 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def kthLargestLevelSum(self, root: TreeNode, k: int) -> int:
+    def kthSmallestLevelSum(self, root: TreeNode, k: int) -> int:
         if not root:
             return -1  # Handle empty tree case
         
@@ -28,15 +28,15 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
             
-            # Add the current level sum to the min-heap
-            heapq.heappush(level_sums, current_level_sum)
+            # Use a max-heap to track the k smallest sums
+            heapq.heappush(level_sums, -current_level_sum)  # Push negative to simulate max-heap
             if len(level_sums) > k:
-                heapq.heappop(level_sums)  # Remove the smallest sum if we exceed size k
+                heapq.heappop(level_sums)  # Remove the largest sum if we exceed size k
 
         if len(level_sums) < k:
             return -1  # Not enough levels
         
-        return level_sums[0]  # The k-th largest sum is the smallest in the heap
+        return -level_sums[0]  # The k-th smallest sum is the largest in the max-heap
 
 # Example usage:
 # Constructing a simple BST
@@ -54,11 +54,5 @@ root.left.right = TreeNode(4)
 root.right.right = TreeNode(9)
 
 solution = Solution()
-k = 2
-print(solution.kthLargestLevelSum(root, k))  # Output: Expected k-th largest level sum
-
-"""
-Time Complexity: O(N log k), where N is the total number of nodes, due to the heap operations for each level sum.
-Space Complexity: O(k) for storing the k largest sums in the heap.
-
-"""
+k = 1
+print(solution.kthSmallestLevelSum(root, k))  # Output: Expected k-th smallest level sum
