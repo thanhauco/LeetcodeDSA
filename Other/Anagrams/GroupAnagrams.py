@@ -5,7 +5,7 @@ def group_anagrams(strs):
 
     for s in strs:
         # Sort the string and use it as a key
-        key = tuple(sorted(s))
+        key = tuple(sorted(s)) # or key = str(sorted(s))
         anagram_map[key].append(s)
 
     # Convert the values of the dictionary to a list
