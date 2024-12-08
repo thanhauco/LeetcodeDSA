@@ -23,7 +23,7 @@ class Solution:
             # Iterate through current level
             for i in range(level_size):
                 # Get and remove the first node in the queue
-                node = queue.pop(0)
+                node = queue.pop(0) # !!! 
                 
                 # For the first node in each level (leftmost),
                 # update the leftmost_value
