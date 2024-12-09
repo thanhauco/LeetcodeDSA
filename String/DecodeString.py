@@ -20,3 +20,4 @@ def decodeString(s):
 # Example usage:
 print(decodeString("3[a]2[bc]"))  # Output: "aaabcbc"
 print(decodeString("3[a2[c]]"))   # Output: "accaccacc"
+print(decodeString("4[d3[a2[c]]]")) # Output: "daccaccaccdaccaccaccdaccaccaccdaccaccacc"
