@@ -18,7 +18,7 @@ sorted_string = "aaabbbccccccceeee"
 char = 'c'
 print(char_frequency(sorted_string, char))  # Output: 7
 
-
+# Don't use bisect module
 def char_frequency_2(sorted_string, char):
     def find_leftmost(arr, target):
         left, right = 0, len(arr) - 1
