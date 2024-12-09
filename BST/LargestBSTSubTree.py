@@ -19,7 +19,6 @@ Solution Approach:
 	•	The size of the BST.
 	•	The minimum and maximum values in the subtree (to ensure the BST property holds).
 """
-
 def largestBSTSubtree(root):
     def dfs(node):
         if not node:
