@@ -1,6 +1,16 @@
 """
 Given a chemical formula string like "H2O" or "Mg(OH)2", return a dictionary or sorted string representation of each atom and its count. Nested parentheses with multipliers are included, e.g., "K4(ON(SO3)2)2".
 
+Hint 1:
+
+Use a stack to keep track of the current count of atoms as you parse the formula. Push and pop counts when encountering parentheses.
+
+Hint 2:
+
+Process the formula character by character:
+	•	If it’s an atom, parse its name and count.
+	•	If it’s (, push the current state to the stack.
+	•	If it’s ), multiply the atom counts within the parentheses by the multiplier that follows.
 """
 
 import collections
