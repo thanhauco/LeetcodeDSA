@@ -26,3 +26,11 @@ root.left = TreeNode(1)
 root.right = TreeNode(3)
 
 print(isValidBST(root))  # Output: True
+
+
+# Construct an invalid BST
+root2 = TreeNode(5)
+root2.left = TreeNode(1)
+root2.right = TreeNode(4, TreeNode(3), TreeNode(6))
+print(isValidBST(root2))  # Output: False
+
