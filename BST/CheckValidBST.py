@@ -4,33 +4,26 @@ class TreeNode:
         self.left = left
         self.right = right
 
-def isValidBST(root: TreeNode, min_val=float('-inf'), max_val=float('inf')) -> bool:
-    if not root:
-        return True
-    
-    # Check the current node's value against the valid range
-    if not (min_val < root.val < max_val):
-        return False
-    
-    # Recursively check left and right subtrees
-    return (isValidBST(root.left, min_val, root.val) and
-            isValidBST(root.right, root.val, max_val))
+def isValidBST(root):
+    def validate(node, low, high):
+        if not node:
+            return True  # An empty tree is a valid BST
+        if not (low < node.val < high):
+            return False  # Current node violates the range rule
+        # Recursively validate left and right subtrees
+        return validate(node.left, low, node.val) and validate(node.right, node.val, high)
 
-# Example Usage:
-# Constructing a valid BST
-#        2
-#       / \
-#      1   3
+    return validate(root, float('-inf'), float('inf'))
+
+# Example usage:
+# Construct a valid BST
 root = TreeNode(2)
 root.left = TreeNode(1)
 root.right = TreeNode(3)
-
 print(isValidBST(root))  # Output: True
-
 
 # Construct an invalid BST
 root2 = TreeNode(5)
 root2.left = TreeNode(1)
 root2.right = TreeNode(4, TreeNode(3), TreeNode(6))
 print(isValidBST(root2))  # Output: False
-
