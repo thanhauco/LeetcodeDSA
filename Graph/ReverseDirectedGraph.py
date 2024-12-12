@@ -47,6 +47,7 @@ print(reversed_edges)  # Output: [(1, 0), (2, 1), (3, 2), (4, 3)]
 
 """
 If the graph is represented as an adjacency matrix matrix[u][v], where 1 indicates a direct edge, reversing the graph involves transposing the matrix.
+using O(n^2) space
 """
 def reverse_graph_matrix(adj_matrix):
     """
