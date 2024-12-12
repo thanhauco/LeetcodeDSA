@@ -7,6 +7,7 @@ For example, if a graph consists of A -> B -> C, it should become A <- B <- C
 def reverse_graph(adj_list):
     # Initialize an empty adjacency list for the reversed graph
     reversed_graph = {node: [] for node in adj_list}
+    print("init reversed_graph:", reversed_graph)
     
     # Iterate through each node and its neighbors in the original graph
     for node, neighbors in adj_list.items():
