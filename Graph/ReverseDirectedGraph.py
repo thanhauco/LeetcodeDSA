@@ -44,3 +44,32 @@ edges = [(0, 1), (1, 2), (2, 3), (3, 4)]
 print("init edges:", edges)
 reversed_edges = reverse_graph_edge_list(edges)
 print(reversed_edges)  # Output: [(1, 0), (2, 1), (3, 2), (4, 3)]
+
+"""
+If the graph is represented as an adjacency matrix matrix[u][v], where 1 indicates a direct edge, reversing the graph involves transposing the matrix.
+"""
+def reverse_graph_matrix(adj_matrix):
+    """
+    Reverse a directed graph represented as an adjacency matrix.
+
+    :param adj_matrix: 2D list representing the adjacency matrix
+    :return: Transposed adjacency matrix (reversed graph)
+    """
+    n = len(adj_matrix)
+    reversed_matrix = [[adj_matrix[j][i] for j in range(n)] for i in range(n)]
+    return reversed_matrix
+
+# Example usage
+adj_matrix = [
+    [0, 1, 0],
+    [0, 0, 1],
+    [1, 0, 0]
+]
+reversed_matrix = reverse_graph_matrix(adj_matrix)
+print(reversed_matrix)
+# Output: 
+# [
+#     [0, 0, 1],
+#     [1, 0, 0],
+#     [0, 1, 0]
+# ]
