@@ -4,25 +4,31 @@ O(nlogn) time complexity
 For an optimized approach, we use a greedy algorithm with binary search. 
 We maintain a list that tracks the smallest possible last element of an increasing subsequence of a given length.
 """
+
 def length_of_lis(nums):
-    from bisect import bisect_left
-    
-    if not nums:
-        return 0
-    
     subseq = []
+    
     for num in nums:
-        pos = bisect_left(subseq, num)  # Find the position where `num` can replace
-        if pos == len(subseq):
-            subseq.append(num)
+        # Find the position to replace in subseq
+        pos = 0
+        while pos < len(subseq) and subseq[pos] < num:
+            pos += 1
+        
+        # Update subseq
+        if pos < len(subseq):
+            subseq[pos] = num  # Replace at the position
         else:
-            subseq[pos] = num  # Replace the element at `pos`
+            subseq.append(num)  # Extend the subsequence
+        
+        # Print the subseq after each iteration
+        print(f"After processing {num}: {subseq}")
     
     return len(subseq)
 
-# Example
+# Example usage:
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
-print(length_of_lis(nums))  # Output: 4
+print(f"Length of LIS: {length_of_lis(nums)}")
+
 
 """
 You can use this instead bin search instead of using bisect_left in the binary search module.
