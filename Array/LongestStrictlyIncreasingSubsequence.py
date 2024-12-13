@@ -25,6 +25,19 @@ nums = [10, 9, 2, 5, 3, 7, 101, 18]
 print(length_of_lis(nums))  # Output: 4
 
 """
+You can use this instead bin search instead of using bisect_left in the binary search module.
+"""
+def binary_search(seq, target):
+    low, high = 0, len(seq)
+    while low < high:
+        mid = (low + high) // 2
+        if seq[mid] < target:
+            low = mid + 1
+        else:
+            high = mid
+    return low
+
+"""
 Using DP, O(n^2) time complexity
 """
 def length_of_lis_dp(nums):
