@@ -1,4 +1,33 @@
+"""
+Use binary search to find the position where the current number can replace.
+O(nlogn) time complexity
+For an optimized approach, we use a greedy algorithm with binary search. 
+We maintain a list that tracks the smallest possible last element of an increasing subsequence of a given length.
+"""
 def length_of_lis(nums):
+    from bisect import bisect_left
+    
+    if not nums:
+        return 0
+    
+    subseq = []
+    for num in nums:
+        pos = bisect_left(subseq, num)  # Find the position where `num` can replace
+        if pos == len(subseq):
+            subseq.append(num)
+        else:
+            subseq[pos] = num  # Replace the element at `pos`
+    
+    return len(subseq)
+
+# Example
+nums = [10, 9, 2, 5, 3, 7, 101, 18]
+print(length_of_lis(nums))  # Output: 4
+
+"""
+Using DP, O(n^2) time complexity
+"""
+def length_of_lis_dp(nums):
     if not nums:
         return 0
     
@@ -17,6 +46,3 @@ def length_of_lis(nums):
 # Example
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
 print(length_of_lis(nums))  # Output: 4
-
-# time complexity: O(n^2)
-# space complexity: O(n)
