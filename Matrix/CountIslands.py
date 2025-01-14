@@ -10,7 +10,7 @@ def numIslandsDFS(grid):
             return
         
         # Mark the cell as visited by setting it to 0
-        grid[i][j] = 0
+        grid[i][j] = 0 # to avoid max recursion depth error
         
         # Explore all four directions
         dfs(i-1, j)  # Up
